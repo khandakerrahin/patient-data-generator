@@ -34,9 +34,26 @@ def new_condition_entry(cond_id):
     cond_json['id'] = cond_id
     cond_json['diagnosed'] = dates[0]
     cond_json['cured'] = dates[1]
-    cond_json['kind'] = "cond" + get_leading_zero_string(get_random_int(1, 668), 5) # total conditions = 668
+    cond_json['kind'] = "cond" + get_leading_zero_string(get_random_int(1, 668), 5)  # total conditions = 668
 
     return cond_json
+
+
+def new_trial_entry(trial_id, conditionCount):
+    trial_string = '{}'
+
+    trial_json = json.loads(trial_string)
+
+    dates = get_random_dates()
+
+    trial_json['id'] = trial_id
+    trial_json['start'] = dates[0]
+    trial_json['end'] = dates[1]
+    trial_json['condition'] = "pc" + get_leading_zero_string(get_random_int(1, conditionCount), 5)  # total Patient conditions = conditionCount
+    trial_json['therapy'] = "th" + get_leading_zero_string(get_random_int(1, 467), 5)  # total therapies = 467
+    trial_json['successful'] = get_random_int(0, 100)
+
+    return trial_json
 
 
 def get_random_dates():
@@ -59,11 +76,11 @@ def get_random_dates():
 
 # main
 # read JSON file
-with open('patients_basic.json', encoding="utf8") as f:
+with open('dataset _rahin.json', encoding="utf8") as f:
     data = json.load(f)
 
 # loop through JSON file
-for patient in data:
+for patient in data['Patients']:
     # print(patient['name'])
     conditionCount = get_random_int(1, 5)
     trialCount = get_random_int(1, 10)
@@ -74,17 +91,22 @@ for patient in data:
     patient['condition'] = []
     patient['trials'] = []
 
+    # print('Condition: ' + str(conditionCount))
+    # print('Trial: ' + str(trialCount))
+    # print()
+
     for x in range(conditionCount):
         # Add new Conditions to patients
-        patient['condition'].append(new_condition_entry('pc'+get_leading_zero_string(x+1, 5)))
+        patient['condition'].append(new_condition_entry('pc' + get_leading_zero_string(x + 1, 5)))
 
-    for x in range(trialCount):
-        # Add new Trials to patients
-        patient['condition'].append(new_condition_entry('pc'+get_leading_zero_string(x+1, 5)))
+    if conditionCount > 0:
+        for x in range(trialCount):
+            # Add new Trials to patients
+            patient['trials'].append(new_trial_entry('tr' + get_leading_zero_string(x + 1, 5), conditionCount))
 
 # data.append(new_condition_entry('cond2441139'))
 
 
 # dump new JSON file
-with open('patients.json', 'w') as f:
+with open('rahin_dataset_final.json', 'w') as f:
     json.dump(data, f, indent=4)
