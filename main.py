@@ -34,7 +34,7 @@ def new_condition_entry(cond_id):
     cond_json['id'] = cond_id
     cond_json['diagnosed'] = dates[0]
     cond_json['cured'] = dates[1]
-    cond_json['kind'] = "Cond1"
+    cond_json['kind'] = "cond" + get_leading_zero_string(get_random_int(1, 668), 5) # total conditions = 668
 
     return cond_json
 
@@ -51,15 +51,15 @@ def get_random_dates():
     random_date_start = start_date + datetime.timedelta(days=random_number_of_days)
     random_date_end = random_date_start + datetime.timedelta(days=get_random_int(0, 10))
 
-    print(random_date_start.strftime("%Y%m%d"))
-    print(random_date_end.strftime("%Y%m%d"))
+    # print(random_date_start.strftime("%Y%m%d"))
+    # print(random_date_end.strftime("%Y%m%d"))
 
     return [random_date_start.strftime("%Y%m%d"), random_date_end.strftime("%Y%m%d")]
 
 
 # main
 # read JSON file
-with open('patients_sample.json') as f:
+with open('patients_basic.json', encoding="utf8") as f:
     data = json.load(f)
 
 # loop through JSON file
@@ -68,14 +68,21 @@ for patient in data:
     conditionCount = get_random_int(1, 5)
     trialCount = get_random_int(1, 10)
 
-    conditionCount = 'cond' + get_leading_zero_string(conditionCount, 5)
-    trialCount = 'tr' + get_leading_zero_string(trialCount, 5)
+    conditionCount = get_random_int(0, 5)
+    trialCount = get_random_int(0, 10)
 
-    patient['condition'] = conditionCount
-    patient['trials'] = trialCount
+    patient['condition'] = []
+    patient['trials'] = []
 
-# Join new_data with file_data inside emp_details
-data.append(new_condition_entry('cond2441139'))
+    for x in range(conditionCount):
+        # Add new Conditions to patients
+        patient['condition'].append(new_condition_entry('pc'+get_leading_zero_string(x+1, 5)))
+
+    for x in range(trialCount):
+        # Add new Trials to patients
+        patient['condition'].append(new_condition_entry('pc'+get_leading_zero_string(x+1, 5)))
+
+# data.append(new_condition_entry('cond2441139'))
 
 
 # dump new JSON file
