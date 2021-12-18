@@ -2,31 +2,37 @@
     {
         "id": 1,
         "name": null,
-        "condition": "Yanni",
-        "trials": "Hans Zimmer"
+        "condition": "cond00004",
+        "trials": "tr00001"
     },
     {
         "id": 2,
         "name": "Santana Joao",
-        "condition": "Yanni",
-        "trials": "Hans Zimmer"
+        "condition": "cond00001",
+        "trials": "tr00010"
     },
     {
         "id": 3,
         "name": "Gon\u00c3\u00a7alvess",
-        "condition": "Yanni",
-        "trials": "Hans Zimmer"
+        "condition": "cond00003",
+        "trials": "tr00006"
     },
     {
         "id": 4,
         "name": "Ramos",
-        "condition": "Yanni",
-        "trials": "Hans Zimmer"
+        "condition": "cond00005",
+        "trials": "tr00003"
     },
     {
         "id": 5,
         "name": "Souza",
-        "condition": "Yanni",
-        "trials": "Hans Zimmer"
+        "condition": "cond00005",
+        "trials": "tr00004"
+    },
+    {
+        "id": "cond2441139",
+        "diagnosed": "20140607",
+        "cured": "20140612",
+        "kind": "Cond1"
     }
 ]
